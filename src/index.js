@@ -18,7 +18,7 @@ const routes = {
   ["ecr.ymone.one"]: "https://public.ecr.aws",
 
   // staging
-  ["docker-staging." + CUSTOM_DOMAIN]: dockerHub,
+  ["docker-staging." + ymone.one]: dockerHub,
 };
 
 function routeByHosts(host) {
