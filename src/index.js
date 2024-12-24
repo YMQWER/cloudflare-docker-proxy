@@ -1,4 +1,3 @@
-import DOCS from './tips.html'
 addEventListener("fetch", (event) => {
   event.passThroughOnException();
   event.respondWith(handleRequest(event.request));
@@ -8,17 +7,17 @@ const dockerHub = "https://registry-1.docker.io";
 
 const routes = {
   // production
-  ["docker.ymone.one"]: dockerHub,
-  ["quay.ymone.one"]: "https://quay.io",
-  ["gcr.ymone.one"]: "https://gcr.io",
-  ["k8s-gcr.ymone.one"]: "https://k8s.gcr.io",
-  ["k8s.ymone.one"]: "https://registry.k8s.io",
-  ["ghcr.ymone.one"]: "https://ghcr.io",
-  ["cloudsmith.ymone.one"]: "https://docker.cloudsmith.io",
-  ["ecr.ymone.one"]: "https://public.ecr.aws",
+  ["docker." + CUSTOM_DOMAIN]: dockerHub,
+  ["quay." + CUSTOM_DOMAIN]: "https://quay.io",
+  ["gcr." + CUSTOM_DOMAIN]: "https://gcr.io",
+  ["k8s-gcr." + CUSTOM_DOMAIN]: "https://k8s.gcr.io",
+  ["k8s." + CUSTOM_DOMAIN]: "https://registry.k8s.io",
+  ["ghcr." + CUSTOM_DOMAIN]: "https://ghcr.io",
+  ["cloudsmith." + CUSTOM_DOMAIN]: "https://docker.cloudsmith.io",
+  ["ecr." + CUSTOM_DOMAIN]: "https://public.ecr.aws",
 
   // staging
-  ["docker-staging." + ymone.one]: dockerHub,
+  ["docker-staging." + CUSTOM_DOMAIN]: dockerHub,
 };
 
 function routeByHosts(host) {
@@ -44,17 +43,6 @@ async function handleRequest(request) {
       }
     );
   }
-
- 
-// return tips.html
-if (url.pathname === "/") {
-  return new Response(DOCS, {
-    status: 200,
-    headers: {
-      "content-type": "text/html"
-    }
-  });
-}
   const isDockerHub = upstream == dockerHub;
   const authorization = request.headers.get("Authorization");
   if (url.pathname == "/v2/") {
